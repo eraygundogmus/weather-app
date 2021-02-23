@@ -15,7 +15,6 @@ import axios from 'axios';
         
     changeHandler(event) {
         this.setState({ value: event.target.value });
-   
         
     }
     submitHandler(event) {
@@ -30,10 +29,6 @@ import axios from 'axios';
              console.log(err)
          })
         }
-
-
-
-
 
     render() {
         return (
