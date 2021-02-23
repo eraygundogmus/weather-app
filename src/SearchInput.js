@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 
 
     class SearchInput extends React.Component {
@@ -14,12 +15,20 @@ import React from 'react'
         
     changeHandler(event) {
         this.setState({ value: event.target.value });
-        console.log(event.target.value)
+   
         
     }
     submitHandler(event) {
+        const API_KEY = "a86544f87f2e8985f9f3beaa312bb7bc"
+        const url = "https://api.openweathermap.org/data/2.5/weather?q=" + this.state.value + "&appid=" + API_KEY
         event.preventDefault();
         console.log(this.state.value)
+        axios
+         .post(url).then((res) => {
+             console.log(res)
+         }).catch((err) => {
+             console.log(err)
+         })
         }
 
 
