@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './SearchInput.css'
+import './SearchInput.scss'
 
 
 const capitalize = (s) => {

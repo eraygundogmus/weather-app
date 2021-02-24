@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import './components/App.css';
+import './components/App.scss';
 import SearchInput from "./components/SearchInput";
 import Header from "./components/Header";
 
