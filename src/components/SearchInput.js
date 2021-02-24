@@ -8,8 +8,9 @@ import './SearchInput.css'
         super(props)
         this.state = {
             value: '',
-            initialLat: 'unknown',
+            initialLat: 'Your location is',
             initialLong: 'unknown',
+            data: []
         };
         this.componentDidMount = this.componentDidMount.bind(this)
         this.changeHandler = this.changeHandler.bind(this)
@@ -37,6 +38,10 @@ import './SearchInput.css'
 
 
     componentDidMount() {
+        const options = {
+            enableHighAccuracy: true,
+            maximumAge: true
+        }
             navigator.geolocation.getCurrentPosition(       
               (position) => {
                   console.log(position)
@@ -47,27 +52,48 @@ import './SearchInput.css'
               console.log(initialLat,initialLong)
               const API_KEY = "a86544f87f2e8985f9f3beaa312bb7bc"
               const circle_uri = "https://api.openweathermap.org/data/2.5/find?lat=" + this.state.initialLat + "&lon=" + this.state.initialLong + "&cnt=10&appid=" + API_KEY
-            
+          
               axios
             .post(circle_uri)
             .then((res) => {
                 console.log(res)
+                const data = res.data.list
+                this.setState({ data })
+                console.log(data)
+              /* code */
             })
             .catch((err) => {
             console.log(err)
+             /* code */
             })
             },  function(error) {
               console.error("Error Code = " + error.code + " - " + error.message);
-            })
+            /* if app can't take current position */
+            }, (options))
     }
-
+    /* note: you can use react-location-picker to give a option to pick user location  (that's what she said) */ 
+ 
     render() {
         return (
             <div className="search__component">
                 <form onSubmit={this.submitHandler}>
                         <input type="text" placeholder="Enter city name" value={this.state.value}  onChange={this.changeHandler}></input>
-                        <div> {this.state.initialLat} {this.state.initialLong}</div>
+                        {/* <div> {this.state.initialLat} {this.state.initialLong}</div> */}
                         <button type="submit" value="search">Search </button>
+                        <div className="location__block">
+                            {this.state.data.map((weather) => (
+                                <div className="location__cities">
+                                <p> {weather.name} </p>
+                                <p> Cloud : % {weather.clouds.all}</p>
+                                <p> Temp : {parseFloat(((weather.main.temp) - 273.15).toFixed(1))}&#176; <br /> 
+                                    Feels Like : {parseFloat(((weather.main.feels_like) - 273.15).toFixed(1))}&#176; <br /> 
+                                    Max Temp : {parseFloat(((weather.main.temp_max) - 273.15).toFixed(1))}&#176; <br />
+                                    Min Temp : {parseFloat(((weather.main.temp_min) - 273.15).toFixed(1))}&#176; <br />
+                                </p>
+                                </div>
+                            ))
+                            }
+                        </div>
                 </form>
             </div>
         )
