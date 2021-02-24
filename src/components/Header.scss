@@ -1,0 +1,15 @@
+.container {
+    background-color: #0d0d0d;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header__container {
+    color: #f2f2f2;
+}
+.header__logo {
+    font-weight: 700;
+    font-size: 24px;
+    cursor: pointer;
+}
