@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import './components/App.scss';
-import SearchInput from "./components/SearchInput";
+import Body from "./components/Body";
 import Header from "./components/Header";
 
 class App extends Component {
@@ -9,7 +9,7 @@ class App extends Component {
   return (
     <div className="App">
       <Header />
-      <SearchInput />
+      <Body />
     </div>
   );
 }
